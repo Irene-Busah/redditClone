@@ -6,7 +6,7 @@ client/package-lock.json
 client/.env.production
 
 .env
-package.json
+
 package-lock.json
 node_modules
 
