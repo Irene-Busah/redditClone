@@ -11,18 +11,18 @@ require('dotenv').config;
 const { CLIENT_URL } = process.env;
 
 const {
-  getUserById,
-  signup,
-  login,
-  googleLogin,
-  githubLogin,
-  fbLogin,
-  twitterLogin,
-  twitterFailure,
-  twitterLogout,
-  updateUser,
-  followUser,
-  unfollowUser,
+    getUserById,
+    signup,
+    login,
+    googleLogin,
+    githubLogin,
+    fbLogin,
+    twitterLogin,
+    twitterFailure,
+    twitterLogout,
+    updateUser,
+    followUser,
+    unfollowUser,
 } = usersControllers;
 const { getAllNotifications } = notificationsControllers;
 const { getBookmarks } = postsControllers;
@@ -30,16 +30,15 @@ const { getBookmarks } = postsControllers;
 router.get('/:userId', getUserById);
 
 router.post(
-  '/signup',
-  fileUpload.single('avatar'),
-  [
-    check('name').not().isEmpty(),
-    check('email')
-      .normalizeEmail() //Test@Test.com => test@test.com
-      .isEmail(),
-    check('password').isLength({ min: 6 }),
-  ],
-  signup
+    '/signup',
+    fileUpload.single('avatar'), [
+        check('name').not().isEmpty(),
+        check('email')
+        .normalizeEmail() //Test@Test.com => test@test.com
+        .isEmail(),
+        check('password').isLength({ min: 6 }),
+    ],
+    signup
 );
 
 router.post('/auth/google', googleLogin);
@@ -58,21 +57,21 @@ router.post('/login', login);
 
 router.get('/auth/twitter', passport.authenticate('twitter'));
 
-router.get(
-  '/auth/twitter/callback',
-  passport.authenticate('twitter', {
-    successRedirect: CLIENT_URL,
-    failureRedirect: '/auth/twitter/failed',
-  })
-);
+// router.get(
+//   '/auth/twitter/callback',
+//   passport.authenticate('twitter', {
+//     successRedirect: CLIENT_URL,
+//     failureRedirect: '/auth/twitter/failed',
+//   })
+// );
 
 router.use(checkAuth);
 
 router.get('/:userId/notifications', getAllNotifications);
 
 router.get(
-  '/:userId/notifications/unread',
-  notificationsControllers.getUnreadNotifications
+    '/:userId/notifications/unread',
+    notificationsControllers.getUnreadNotifications
 );
 
 router.get('/:userId/bookmarks', getBookmarks);
