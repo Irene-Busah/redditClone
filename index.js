@@ -101,7 +101,7 @@ app.use((error, req, res, next) => {
 mongoose
     .connect(
         `mongodb+srv://${DB_USER}:${DB_PASSWORD}@reddit-clone.jfzxp.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`, {
-            useUnifiedTopology: true,
+            // useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: false,
