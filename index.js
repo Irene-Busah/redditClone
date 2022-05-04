@@ -49,8 +49,9 @@ app.use(passport.session());
 
 const io = new Server(httpServer, {
     cors: {
-        origin: `*`,
-        methods: ['GET', 'POST'],
+        origin: CLIENT_URL,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+        credentials: true,
     },
 });
 socketHandlers(io);
