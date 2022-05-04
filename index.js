@@ -49,7 +49,7 @@ app.use(passport.session());
 
 const io = new Server(httpServer, {
     cors: {
-        origin: CLIENT_URL,
+        origin: process.env.CLIENT_URL,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
         credentials: true,
     },
@@ -58,11 +58,17 @@ socketHandlers(io);
 
 app.use(
     cors({
-        origin: CLIENT_URL, // allow to server to accept request from different origin
-        methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+        origin: process.env.CLIENT_URL, // allow to server to accept request from different origin
+        methods: ['GET, HEAD, PUT, PATCH, POST, DELETE'],
         credentials: true, // allow session cookie from browser to pass through
     })
 );
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, ContenT-Type, Accept");
+    next();
+})
 
 app.use('/api/posts', postsRoutes);
 
